@@ -1,0 +1,72 @@
+
+/* Fontello */
+@import '../fonts/fontello/css/fontello.css';
+
+/* Reset */
+@import 'reset.css';
+
+/* Style */
+
+.header {
+  text-align: center;
+  padding: 10px 0;
+  background: #013a01;
+}
+
+.title {
+  color: #FFF;
+  font-size: 22px;
+}
+
+.main {
+  width: 95%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.form {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form-fieldset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  width: 100%;
+}
+
+.form-input {
+  width: 100%;
+  border: 1px solid #013a01;
+  font-size: 18px;
+  color: #013a01;
+}
+
+.form-button {
+  background: #013a01;
+  color: #FFF;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: calc(100% / 4);
+  margin: 0 2.5px;
+  cursor: pointer;
+  transition: .2s ease-in-out;
+}
+.form-button:hover {
+  background: #f18d14;
+}
+.form-button.reset {
+  width: 100%;
+}
