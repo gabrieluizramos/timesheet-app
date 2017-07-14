@@ -16,8 +16,9 @@
     <main class="main">
       <!-- <h2 class="subtitle"></h2> -->
       <form class="form" name="form">
-        <div class="form-fieldset">
-          <input type="date" name="date" class="form-input">
+        <div class="form-fieldset col">
+          <label class="form-label">Hoje é <output name="day_output" class="orange uppercase"></output> dia</label>
+          <input type="text" name="date" class="form-input" readonly>
         </div>
         <div class="form-fieldset">
           <button name="button_enter" type="button" class="form-button icon-enter"></button>
@@ -26,7 +27,7 @@
           <button name="button_exit" type="button" class="form-button icon-exit"></button>
         </div>
         <div class="form-fieldset">
-          <button type="button" name="button_reset" class="form-button reset">resetar</button>
+          <button type="button" name="button_report" class="form-button reset uppercase">gerar relatório</button>
         </div>
       </form>
     </main>
