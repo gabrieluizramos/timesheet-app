@@ -5,6 +5,18 @@ var timeMachine = (function timeMachine(today, locale){
   var _date = today;
   var _locale = locale;
 
+  function _reboot () {
+    _date = new Date();
+  }
+  
+  function _getTime () {
+    return _date.getHours() + 'h' + _date.getMinutes() + 'min' + _date.getSeconds() + 'seg';
+  }
+
+  function _getDateWithInternationalFormat () {
+    return _get('year','numeric') + '-' + _get('month','2-digit') + '-' + _get('day','2-digit');
+  }
+
   function _setDate(date){
     date = date.split('-');
     date = date[1] + '/' + date[2] + '/' + date[0];
@@ -53,7 +65,7 @@ var timeMachine = (function timeMachine(today, locale){
     var monthsNames = [];
     var realDate = ( _date.getMonth() + 1 ) + '/' + _date.getDate() + '/' + _date.getFullYear();
 
-    for ( var months = 1 ; months < 12 ; months++ ) {
+    for ( var months = 1 ; months <= 12 ; months++ ) {
       _setDate(months +'/01/2017');
       monthsNames.push(_getMonth(type));
     }
@@ -64,6 +76,7 @@ var timeMachine = (function timeMachine(today, locale){
   }
 
   return {
+    getTime: _getTime,
     getPrimitiveDate: _getPrimitiveDate,
     getDay: _getDay,
     getWeekDay: _getWeekDay,
@@ -71,9 +84,11 @@ var timeMachine = (function timeMachine(today, locale){
     getAllMonthsOfYear: _getAllMonthsOfYear,
     getYear: _getYear,
     getFullDate: _getFullDate,
+    getDateWithInternationalFormat: _getDateWithInternationalFormat,
     setDate: _setDate,
     getLocale: _getLocale,
-    setLocale: _setLocale
+    setLocale: _setLocale,
+    reboot: _reboot
   };
 
 })(new Date(), 'pt-br');

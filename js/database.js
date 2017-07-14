@@ -1,4 +1,7 @@
 var database = (function(){
+  
+  'use strict';
+
   // Database Creation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   var _db = {
     storage: localStorage,
@@ -14,18 +17,22 @@ var database = (function(){
   // Database Functions :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   _db.functions.createStorage = (function createStorage(){
     var months = timeMachine.getAllMonthsOfYear();
-    for ( var month = 0 ; month < months.length ; month++) {
-      if ( !localStorage[ months[ month ] ] ) {
-        console.log('Criado mês com sucesso: ' + months[ month ] );
-        _db.storage.setItem( [ months[ month ] ] , null );
+    if ( !_db.storage.length ) {
+      for ( var month = 0 ; month < months.length ; month++) {
+        if ( !localStorage[ months[ month ] ] ) {
+          _db.storage.setItem( [ months[ month ] ] , null );
+        }
       }
+      console.log('[ Timesheet | Database ] created months');
     }
-
+    console.log('[ Timesheet | Database ] ready');
     return createStorage;
   })();
 
-  _db.functions.deleteAll = function(){
+  _db.functions.drop = function(){
     _db.storage.clear();
+    console.log('[ Timesheet | Database ] cleared');
+
     _db.functions.createStorage()
   }
 
@@ -35,12 +42,16 @@ var database = (function(){
   }
 
   _db.functions.setMonthData = function ( monthName , data ) {
-    _db.storage[ monthName ] = data;
-    return _db.storage[ monthName ];
+     _db.storage[ monthName ] = _db.helpers.parseJSON( data );
+    return true;
   }
 
   _db.functions.getMonthData = function ( monthName ) {
-    return _db.storage[ monthName ];
+    return _db.helpers.parseJSON( _db.storage[ monthName ] , true );
+  }
+
+  _db.functions.getDataByDayAndMonth = function ( monthName , day ) {
+    return _db.helpers.parseJSON( _db.storage[ monthName ] , true )[ day ];
   }
 
   _db.functions.getAllData = function(){
