@@ -1,39 +1,52 @@
 var database = (function(){
-  var db = openDatabase('db_timesheet', '1.0' , 'Datbase for t front-end app', 2 * 1024 * 1024 , function(){
-    console.log('Database opened');
-  });
+  // Database Creation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  var _db = {
+    storage: localStorage,
+    functions: {},
+    helpers: {}
+  }
 
-  (function createTables(db){
-    // creation working
-    // TODO: validate if exists a creation and insert unique query with IF NOT EXISTS statement
-    db.transaction(function ( tx ) {
-      tx.executeSql('CREATE TABLE tb_meses ( id INTEGER PRIMARY KEY, nm_mes VARCHAR(50) );');
-      tx.executeSql('INSERT INTO tb_meses ( nm_mes ) VALUES ( "Janeiro" ), ( "Fevereiro" ), ( "Março" ), ( "Abril" ), ( "Maio" ), ( "Junho" ), ( "Julho" ), ( "Agosto" ), ( "Setembro" ), ( "Outubro" ), ( "Novembro" ), ( "Dezembro" );');
-    });
-  })(db);
-
-  function _dropTable ( table ) {
-     db.transaction(function ( tx ) {
-      tx.executeSql('DROP TABLE ' + table);
-     });
+  // Database Helpers :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  _db.helpers.parseJSON = function ( stringJSON , toJSON ) {
+    return toJSON ? JSON.parse( stringJSON ) : JSON.stringify( stringJSON );
   }
   
+  // Database Functions :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  _db.functions.createStorage = (function createStorage(){
+    var months = timeMachine.getAllMonthsOfYear();
+    for ( var month = 0 ; month < months.length ; month++) {
+      if ( !localStorage[ months[ month ] ] ) {
+        console.log('Criado mês com sucesso: ' + months[ month ] );
+        _db.storage.setItem( [ months[ month ] ] , null );
+      }
+    }
 
-  function _executeQuery (query, callback) {
-    db.transaction(function ( tx ) {
-      tx.executeSql(query);
-    });
+    return createStorage;
+  })();
+
+  _db.functions.deleteAll = function(){
+    _db.storage.clear();
+    _db.functions.createStorage()
   }
 
-  function _dropDatabase () {
-    db.transaction(function ( tx ) {
-      tx.executeSql('DROP DATABASE db_timesheet');
-    });
+  _db.functions.deleteMonthData = function ( monthName ) {
+    _db.storage[ monthName ] = null;
+    return true;
   }
 
-  return {
-    executeQuery: _executeQuery,
-    dropTable: _dropTable,
-    dropDatabase: _dropDatabase
+  _db.functions.setMonthData = function ( monthName , data ) {
+    _db.storage[ monthName ] = data;
+    return _db.storage[ monthName ];
   }
+
+  _db.functions.getMonthData = function ( monthName ) {
+    return _db.storage[ monthName ];
+  }
+
+  _db.functions.getAllData = function(){
+    return _db.storage;
+  }
+
+  // Return only functions ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  return _db.functions
 })();
