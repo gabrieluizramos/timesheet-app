@@ -7,6 +7,18 @@
 
 /* Style */
 
+.orange {
+  color: #f18d14;
+}
+
+.green {
+  color: #013a01; 
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
 .header {
   text-align: center;
   padding: 10px 0;
@@ -44,11 +56,22 @@
   width: 100%;
 }
 
+.col {
+  flex-direction: column;
+}
+
+.form-label {
+  color: #013a01;
+  display: block;
+  margin-bottom: 5px;
+}
 .form-input {
   width: 100%;
   border: 1px solid #013a01;
   font-size: 18px;
   color: #013a01;
+  text-align: center;
+  padding: 10px 0;
 }
 
 .form-button {
