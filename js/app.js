@@ -1,6 +1,10 @@
-var app = (function ( date , day_output , button_enter , button_lunch , button_return , button_exit , button_report ){
+var app = (function ( date , day_output , button_enter , button_lunch , button_return , button_exit , button_report , report_container ){
   
   'use strict';
+
+  var tableTemplate = '<table class="report-table"><thead class="report-header"><tr class="report-row"><th class="report-cell" colspan="6">[#mes#]</th></tr><tr class="report-row"><th class="report-cell">#</th><th class="report-cell">dia</th><th class="report-cell">entrada</th><th class="report-cell">almoço</th><th class="report-cell">retorno</th><th class="report-cell">saída</th></tr></thead><tbody class="report-body">[#table-body#]</tbody></table>';
+
+  var tableRowtemplate = '<tr class="report-row"><td class="report-cell">[#dia#]</td><td class="report-cell">[#dia-semana#]</td><td class="report-cell">[#entrada#]</td><td class="report-cell">[#almoco#]</td><td class="report-cell">[#retorno#]</td><td class="report-cell">[#saida#]</td></tr>';
 
   (function appInit(){
     var today = timeMachine.getFullDate();
@@ -18,7 +22,8 @@ var app = (function ( date , day_output , button_enter , button_lunch , button_r
       weekDay: timeMachine.getWeekDay()
     };
   }
-  // TODO: refactor in save functions
+
+  // TODO: refactor in save functions for better performance
   button_enter.onclick = function saveEntry () {
 
     var month = _getNow().monthName;
@@ -73,92 +78,30 @@ var app = (function ( date , day_output , button_enter , button_lunch , button_r
 
   button_report.onclick = function () {
     var month = _getNow().monthName
-    var table = getReportTable(month)
-  }
-
-  // TODO: refactor table functions
-
-  function getReportTableHead (month, monthData){
-
-    var thead = document.createElement('thead');
-    thead.className = 'report-thead'
-    
-    var tr = document.createElement('tr');
-    tr.className = 'report-row';
-    
-    var th = document.createElement('th');
-    th.className = 'report-cell'
-    th.textContent = month;
-
-    tr.appendChild(th);
-    thead.appendChild(tr);
-
-    var headCellsType = monthData[Object.keys(monthData)[0]].horarios;
-    
-    tr = document.createElement('tr');
-    tr.className = 'report-row';
-    
-    for ( var horario in headCellsType ) {
-      th = document.createElement('th');
-      th.className = 'report-cell';
-      th.textContent = horario;
-      tr.appendChild(th);
-    }
-
-    thead.appendChild(tr);
-
-    return thead;
-  }
-
-  function getReportTableBody (monthData) {
-    var tbody = document.createElement('tbody');
-    tbody.className = 'report-body';
-
-    for ( var day in monthData ) {
-      var tr = document.createElement('tr');
-      tr.className = 'report-row';
-
-      var td = document.createElement('td');
-      td.className = 'report-cell';
-      td.textContent = day;
-
-      tr.appendChild(td);
-
-      for ( var conteudo in monthData[day] ) {
-        td = document.createElement('td');
-        td.className = 'report-cell';
-
-        if ( typeof monthData[day][conteudo] !== 'string' ) {
-          for ( var horario in monthData[day][conteudo] ) {
-
-          }
-        }
-        else {
-          td.textContent = monthData[day][conteudo];
-        }
-      }
-
-      tr.appendChild(td);
-
-      tbody.appendChild(tr);
-    }
-
-    return tbody;
+    report_container.innerHTML = getReportTable(month);
   }
 
   function getReportTable (month) {
+    var table = tableTemplate;
+    table = table.replace( '[#mes#]' , month );
+
     var monthData = database.getMonthData(month);
-    
-    var table = document.createElement('table');
-    table.className = 'report-table';
+    var allRows = '';
+    for ( var day in monthData ) {
+      var newRow = tableRowtemplate;
+      newRow = newRow.replace( '[#dia#]' , day );
+      newRow = newRow.replace( '[#dia-semana#]' , monthData[day].diaDaSemana );
+      newRow = newRow.replace( '[#entrada#]' , monthData[day].horarios.entrada );
+      newRow = newRow.replace( '[#almoco#]' , monthData[day].horarios.almoco );
+      newRow = newRow.replace( '[#retorno#]' , monthData[day].horarios.retorno );
+      newRow = newRow.replace( '[#saida#]' , monthData[day].horarios.saida );
 
-    table.appendChild(getReportTableHead(month, monthData));
-    table.appendChild(getReportTableBody(monthData));
+      allRows += newRow;
+    }
 
-    console.log(table);
+    table = table.replace( '[#table-body#]' , allRows );
 
-
-    
+    return table;
   }
 
 })(
@@ -168,5 +111,6 @@ var app = (function ( date , day_output , button_enter , button_lunch , button_r
   form.button_lunch,
   form.button_return,
   form.button_exit,
-  form.button_report
+  form.button_report,
+  report_container
 );
