@@ -10,7 +10,7 @@ var timeMachine = (function timeMachine(today, locale){
   }
   
   function _getTime () {
-    return _date.getHours() + 'h' + _date.getMinutes() + 'min' + _date.getSeconds() + 'seg';
+    return _date.getHours() + 'h' + _date.getMinutes() + 'min'; //+ _date.getSeconds() + 'seg';
   }
 
   function _getDateWithInternationalFormat () {
