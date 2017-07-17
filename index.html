@@ -5,32 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+    
+    <!-- Mobile APP -->
+    <meta name="theme-color" content="#013a01" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="img/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">    
+    <meta name="apple-mobile-web-app-title" content="2Remember \n Seus lembretes ">
+    <link rel="apple-touch-startup-image" href="img/icon.png">
+    <link rel="apple-touch-icon" href="img/icon.png">  
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="width">  
+    <meta name="msapplication-TileColor" content="#013a01">
+    <meta name="msapplication-TileImage" content="img/icon.png">
+    <meta name="msapplication-tap-highlight" content="no">
+
     <!-- STYLE  -->
     <link rel="stylesheet" href="css/style.css">
+
+    <title>Timesheet App</title>
   </head>
   <body>
     <header class="header">
-      <h1 class="title">title</h1>
+      <h1 class="title">Timesheet App</h1>
     </header>
     <main class="main">
-      <!-- <h2 class="subtitle"></h2> -->
-      <form class="form" name="form">
-        <div class="form-fieldset col">
-          <label class="form-label">Hoje é <output name="day_output" class="orange uppercase"></output> dia</label>
-          <input type="text" name="date" class="form-input" readonly>
-        </div>
-        <div class="form-fieldset">
-          <button name="button_enter" type="button" class="form-button icon-enter"></button>
-          <button name="button_lunch" type="button" class="form-button icon-lunch"></button>
-          <button name="button_return" type="button" class="form-button icon-return"></button>
-          <button name="button_exit" type="button" class="form-button icon-exit"></button>
-        </div>
-        <div class="form-fieldset">
-          <button type="button" name="button_report" class="form-button reset uppercase">gerar relatório</button>
-        </div>
-      </form>
-      <div id="report"></div>
+      <div class="wrapper">
+        <!-- <h2 class="subtitle"></h2> -->
+        
+        <form class="form" name="form">
+          <div class="form-fieldset">
+            <div class="form-lable">
+              Hoje é <output name="day_output" class="orange uppercase"></output> dia
+              <output name="date"></output>
+            </div>
+          </div>
+          <div class="form-fieldset">
+            <button name="button_enter" type="button" class="form-button icon-enter">entrada</button>
+            <button name="button_lunch" type="button" class="form-button icon-lunch">almoço</button>
+            <button name="button_return" type="button" class="form-button icon-return">retorno</button>
+            <button name="button_exit" type="button" class="form-button icon-exit">saída</button>
+          </div>
+          <div class="form-fieldset">
+            <button type="button" name="button_report" class="form-button reset uppercase">gerar relatório</button>
+          </div>
+        </form>
+        <!-- Report container to show timesheet table -->
+        <div id="report_container" class="report-container"></div>
+      </div>
     </main>
 
     <!-- SCRIPTS -->
