@@ -31,12 +31,17 @@ var app = (function ( date , day_output , button_enter , button_lunch , button_r
     var day = _getNow().day;
     var weekDay = _getNow().weekDay;
 
-    var entryData = {
-      [day]: {
-        diaDaSemana: weekDay,
-        horarios: {
-          entrada: entryTime
-        }
+    var hasMonthData = database.getMonthData(month);
+    var entryData = {};
+
+    if ( hasMonthData ) {
+      entryData = hasMonthData;
+    }
+
+    entryData[day] = {
+      diaDaSemana: weekDay,
+      horarios: {
+        entrada: entryTime
       }
     };
     
@@ -128,10 +133,10 @@ var app = (function ( date , day_output , button_enter , button_lunch , button_r
       var newRow = tableRowtemplate;
       newRow = newRow.replace( '[#dia#]' , day );
       newRow = newRow.replace( '[#dia-semana#]' , monthData[day].diaDaSemana );
-      newRow = newRow.replace( '[#entrada#]' , monthData[day].horarios.entrada );
-      newRow = newRow.replace( '[#almoco#]' , monthData[day].horarios.almoco );
-      newRow = newRow.replace( '[#retorno#]' , monthData[day].horarios.retorno );
-      newRow = newRow.replace( '[#saida#]' , monthData[day].horarios.saida );
+      newRow = newRow.replace( '[#entrada#]' , monthData[day].horarios.entrada || 'não cadastrado' );
+      newRow = newRow.replace( '[#almoco#]' , monthData[day].horarios.almoco || 'não cadastrado' );
+      newRow = newRow.replace( '[#retorno#]' , monthData[day].horarios.retorno || 'não cadastrado' );
+      newRow = newRow.replace( '[#saida#]' , monthData[day].horarios.saida  || 'não cadastrado' );
 
       allRows += newRow;
     }
