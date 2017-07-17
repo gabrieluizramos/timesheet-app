@@ -1,0 +1,5 @@
+
+# TODO
+  - mudar app para usar requirejs
+  - mensageria customizada e randomica
+  - refactors
