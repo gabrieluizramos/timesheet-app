@@ -40,7 +40,16 @@ var app = (function ( date , day_output , button_enter , button_lunch , button_r
       }
     };
     
-    console.log( '[ Timesheet | Entry ] status: ' + database.setMonthData(month, entryData) );
+    var saveStatus = database.setMonthData(month, entryData);
+    
+    if ( saveStatus ) {
+      alert('Entrada cadastrada com sucesso! Bom trabalho!');
+    }
+    else {
+      alert('Desculpe! Ocorreu algum erro ao salvar sua entrada :(');
+    }
+
+    console.log( '[ Timesheet | Entry ] status: ' + saveStatus );
   };
 
   button_lunch.onclick = function saveLunch () {
@@ -51,7 +60,17 @@ var app = (function ( date , day_output , button_enter , button_lunch , button_r
     var lunchData = database.getMonthData(month);
     lunchData[day].horarios.almoco = lunchTime;
 
-    console.log( '[ Timesheet | Lunch ] status: ' + database.setMonthData(month, lunchData) );    
+
+    var saveStatus = database.setMonthData(month, lunchData);
+
+    if ( saveStatus ) {
+      alert('Saída para o almoço cadastrada com sucesso! Bom almoço!');
+    }
+    else {
+      alert('Desculpe! Ocorreu algum erro ao salvar sua saída para almoço :(');
+    }
+
+    console.log( '[ Timesheet | Lunch ] status: ' + saveStatus );    
   };
 
   button_return.onclick = function saveReturn () {
@@ -62,7 +81,16 @@ var app = (function ( date , day_output , button_enter , button_lunch , button_r
     var returnData = database.getMonthData(month);
     returnData[day].horarios.retorno = returnTime;
 
-    console.log( '[ Timesheet | Return ] status: ' + database.setMonthData(month, returnData) );    
+    var saveStatus = database.setMonthData(month, returnData);
+
+    if ( saveStatus ) {
+      alert('Retorno cadastrado com sucesso! Falta só mais meio período :)');
+    }
+    else {
+      alert('Desculpe! Ocorreu algum erro ao salvar seu retorno :(');
+    }
+
+    console.log( '[ Timesheet | Return ] status: ' + saveStatus );    
   };
 
   button_exit.onclick = function saveExit () {
@@ -73,7 +101,16 @@ var app = (function ( date , day_output , button_enter , button_lunch , button_r
     var exitData = database.getMonthData(month);
     exitData[day].horarios.saida = exitTime;
 
-   console.log( '[ Timesheet | Exit ] status: ' + database.setMonthData(month, exitData) );    
+    var saveStatus = database.setMonthData(month, exitData);
+
+    if ( saveStatus ) {
+      alert('Saída cadastrado com sucesso! Tenha um bom dia e até amanhã :D');
+    }
+    else {
+      alert('Desculpe! Ocorreu algum erro ao salvar sua saída :(');
+    }
+
+    console.log( '[ Timesheet | Eit ] status: ' + saveStatus ); 
   };
 
   button_report.onclick = function () {
