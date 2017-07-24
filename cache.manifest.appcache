@@ -1,0 +1,16 @@
+CACHE MANIFEST
+# v1 - 2017-07-24
+
+# use files from cache
+CACHE:
+index.html
+css/style.css
+js/vendor/require.js
+js/config.js
+js/modules/timemachine.js
+js/modules/database.js
+js/modules/app.js
+
+# use all files from network if available
+NETWORK:
+*
