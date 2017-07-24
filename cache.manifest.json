@@ -1,0 +1,20 @@
+{
+  "name": "Timesheet App",
+  "description": "A simple timesheet app to remember users to register their timesheet",
+  "lang": "pt-BR",
+  "display": "fullscreen",
+  "background_color": "#FFF",
+  "icons": [
+    {
+      "src": "img/favicon.png",
+      "sizes": "62x62",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html"
+}
