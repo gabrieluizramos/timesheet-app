@@ -1,5 +1,6 @@
 
 # TODO
-  - mudar app para usar requirejs
+  - mudar para permitir utilizacao offline (PWA)
+  - mudar app para usar requirejs/react
   - mensageria customizada e randomica
   - refactors
