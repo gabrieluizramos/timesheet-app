@@ -4,7 +4,7 @@ define([
   'database'
 ], function (timeMachine, database) {
 
-  var app = (function (date, day_output, button_enter, button_lunch, button_return, button_exit, button_report, report_container) {
+  var app = (function (date, day_output, button_enter, button_lunch, button_return, button_exit, input_month, button_report, report_container) {
 
     'use strict';
 
@@ -125,7 +125,7 @@ define([
     };
 
     button_report.onclick = function () {
-      var month = _getNow().monthName
+      var month = timeMachine.getMonthByNumber(Number(input_month.value)) || _getNow().monthName;
       report_container.innerHTML = getReportTable(month);
     }
 
@@ -159,6 +159,7 @@ define([
     form.button_lunch,
     form.button_return,
     form.button_exit,
+    form.input_month,
     form.button_report,
     report_container
     );

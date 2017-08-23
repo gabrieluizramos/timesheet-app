@@ -19,6 +19,11 @@ define(function () {
       return _get('year', 'numeric') + '-' + _get('month', '2-digit') + '-' + _get('day', '2-digit');
     }
 
+    function _getMonthByNumber (number) {
+      number--;
+      return ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'][number];
+    }
+
     function _setDate(date) {
       date = date.split('-');
       date = date[1] + '/' + date[2] + '/' + date[0];
@@ -90,7 +95,8 @@ define(function () {
       setDate: _setDate,
       getLocale: _getLocale,
       setLocale: _setLocale,
-      reboot: _reboot
+      reboot: _reboot,
+      getMonthByNumber: _getMonthByNumber
     };
 
   })(new Date(), 'pt-br');

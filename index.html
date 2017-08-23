@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html manifest="cache.manifest.appcache">
   <head>
+    <!-- CACHE MANIFEST -->
+    <link rel="manifest" href="cache.manifest.json">
+
     <!-- META -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
@@ -25,10 +28,6 @@
     <!-- STYLE -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- CACHE MANIFEST -->
-    <link rel="manifest" href="cache.manifest.json">
-
-
     <title>Timesheet App</title>
   </head>
   <body>
@@ -41,7 +40,7 @@
         
         <form class="form" name="form">
           <div class="form-fieldset">
-            <div class="form-lable">
+            <div class="form-label">
               Hoje é <output name="day_output" class="orange uppercase"></output> dia
               <output name="date"></output>
             </div>
@@ -51,6 +50,23 @@
             <button name="button_lunch" type="button" class="form-button icon-lunch">almoço</button>
             <button name="button_return" type="button" class="form-button icon-return">retorno</button>
             <button name="button_exit" type="button" class="form-button icon-exit">saída</button>
+          </div>
+          <div class="form-fieldset">
+            <select name="input_month" class="form-input">
+              <option selected disabled value="">Selecione o mês para gerar o relatório</option>
+              <option value="01">Janeiro</option>
+              <option value="02">Fevereiro</option>
+              <option value="03">Março</option>
+              <option value="04">Abril</option>
+              <option value="05">Maio</option>
+              <option value="06">Junho</option>
+              <option value="07">Julho</option>
+              <option value="08">Agosto</option>
+              <option value="09">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
           </div>
           <div class="form-fieldset">
             <button type="button" name="button_report" class="form-button reset uppercase">gerar relatório</button>
